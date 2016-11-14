@@ -36,3 +36,50 @@ function sendPost(url, params, success, error) {
         params
     ).done(success).fail(error);
 }
+
+/**
+ * Sends AJAX call to either approve or delete message.
+ *
+ * @param messageId
+ * @param decision
+ */
+function decideMessageFate(messageId, decision) {
+
+    var url = $('#sendMessage').data('decide-url');
+
+    sendPost(
+        url,
+        {messageId: messageId, toApprove: decision},
+        function (response) {
+            if (decision == 0) {
+                $('#message' + messageId).remove();
+            } else {
+                refreshMessages();
+            }
+        }, function (response) {
+            console.log('success: ', response);
+        }
+    )
+}
+
+function refreshMessages() {
+    sendPost($messageButton.data('ret-url'), {}, function (response) {
+        $('#allMessages').html(response['html']);
+    }, function (response) {
+        console.log(response);
+    });
+}
+
+window.onload = function () {
+
+    $messageButton = $('#sendMessage');
+    //if($messageButton.length != 0) {
+    //    setInterval(function () {
+    //        sendPost($messageButton.data('ret-url'), {}, function (response) {
+    //            $('#allMessages').html(response['html']);
+    //        }, function (response) {
+    //            console.log(response);
+    //        });
+    //    }, 2000);
+    //}
+};

@@ -12,9 +12,12 @@
 
             <div class="panel-body">
                 <div class="row well no-space-between">
-                    <div class="col-md-1 column-border">Author [Role]</div>
+                    <div class="col-md-1">Author [Role]</div>
                     <div class="col-md-1 column-border">Date sent</div>
                     <div class="col-md-9">Message</div>
+                    {% if isModerator is defined and isModerator %}
+                        <div class="col-md-1">Approve / Decline</div>
+                    {% endif %}
                 </div>
                 <div id="allMessages">
                     {{ include('@Chat/Chat/partial/_messages.html.twig', { 'messages': messages } ) }}
@@ -24,7 +27,8 @@
                         <label for="message">Message:</label>
                         <textarea class="form-control" rows="3" id="message"></textarea>
                     </div>
-                    <div class="btn btn-primary" id="sendMessage" data-url="{{ path('chat_send_message') }}">Submit</div>
+                    <div class="btn btn-primary" id="sendMessage" data-ret-url="{{ path('chat_retrieve_messages') }}"
+                         data-url="{{ path('chat_send_message') }}" data-decide-url="{{ path('chat_message_decide') }}">Submit</div>
                 </div>
             </div>
         </div>

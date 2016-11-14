@@ -45,7 +45,7 @@ class Message {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateApproved", type="datetime", nullable=true)
+     * @ORM\Column(name="dateApproved", type="datetime")
      */
     private $dateApproved;
 
@@ -161,29 +161,5 @@ class Message {
     public function getUser() {
 
         return $this->user;
-    }
-
-    /**
-     * Set dateApproved
-     *
-     * @param \DateTime $dateApproved
-     *
-     * @return Message
-     */
-    public function setDateApproved($dateApproved)
-    {
-        $this->dateApproved = $dateApproved;
-
-        return $this;
-    }
-
-    /**
-     * Get dateApproved
-     *
-     * @return \DateTime
-     */
-    public function getDateApproved()
-    {
-        return $this->dateApproved;
     }
 }

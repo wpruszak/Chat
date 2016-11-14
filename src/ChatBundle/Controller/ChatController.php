@@ -2,6 +2,7 @@
 
 namespace ChatBundle\Controller;
 
+use ChatBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -43,7 +44,8 @@ class ChatController extends Controller {
         $messageService = $this->get('message_service');
 
         return $this->render('ChatBundle:Chat:index.html.twig', array(
-            'messages' => $messageService->getMessagesForUser($user)
+            'messages' => $messageService->getMessagesForUser($user),
+            'isModerator' => $user->getRole() === User::USER_ROLE_MODERATOR ? true : false
         ));
     }
 
@@ -63,5 +65,39 @@ class ChatController extends Controller {
 
         // If message was not sent, set error flag to 1.
         return new JsonResponse(array('error' => $isSent ? 0 : 1));
+    }
+
+    /**
+     * Returns rendered messages html.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function retrieveMessagesAction(Request $request) {
+
+        // Retrieve user from session.
+        $user = $this->get('user_service')->getUser($this->get('session'));
+
+        return new JsonResponse(array(
+            'html' => $this->renderView('@Chat/Chat/partial/_messages.html.twig', array(
+                'messages' => $this->get('message_service')->getMessagesForUser($user)
+            ))
+        ));
+    }
+
+    /**
+     * Deletes or approves message.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function decideAction(Request $request) {
+
+        $messageId = $request->request->get('messageId');
+        $toApprove = $request->request->get('toApprove') === '1' ? true : false;
+
+        $this->get('message_service')->approveOrDelete($messageId, $toApprove);
+
+        return new JsonResponse(array());
     }
 }

@@ -1,12 +1,18 @@
 {% if messages is defined and messages is not null and messages is not empty %}
     {% for message in messages %}
-        <div class="row well no-space-between">
-            <div class="col-md-1 column-border">{{ message.user.nick }}
+        <div class="row well no-space-between" id="message{{ message.id }}">
+            <div class="col-md-1">{{ message.user.nick }}
                 {% if message.user.role == constant('USER_ROLE_EXPERT', message.user) %}[Expert]
                 {% elseif message.user.role == constant('USER_ROLE_MODERATOR', message.user) %}[Moderator]{% endif %}
             </div>
             <div class="col-md-1 column-border">{{ message.dateSent | date }}</div>
             <div class="col-md-9">{{ message.content }}</div>
+            {% if isModerator is defined and isModerator and not message.isApproved %}
+                <div class="col-md-1" id="toApprove{{ message.id }}">
+                    <a onclick="decideMessageFate('{{ message.id }}', 1);"><i class="fa fa-check"></i></a>
+                    <a onclick="decideMessageFate('{{ message.id }}', 0);"><i class="fa fa-remove"></i></a>
+                </div>
+            {% endif %}
         </div>
     {% endfor %}
 {% endif %}

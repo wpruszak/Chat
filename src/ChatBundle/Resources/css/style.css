@@ -24,6 +24,7 @@ div.row {
 .column-border {
     padding-right: 20px;
     border-right: 1px solid #9d9d9d;
+    border-left: 1px solid #9d9d9d;
 }
 
 .container div.column:last-child {

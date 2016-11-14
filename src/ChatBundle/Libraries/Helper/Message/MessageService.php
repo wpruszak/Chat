@@ -44,6 +44,7 @@ class MessageService {
             $message->setDateSent(new \DateTime());
             $message->setUser($user);
             $message->setIsApproved($user->getRole() === User::USER_ROLE_NORMAL ? false : true);
+            $message->setDateApproved($user->getRole() === User::USER_ROLE_NORMAL ? null : new \DateTime());
 
             $this->em->persist($message);
             $this->em->flush();
@@ -67,7 +68,7 @@ class MessageService {
             || $user->getRole() === User::USER_ROLE_EXPERT) {
 
             $paramArray = array(
-                'isApproved' => false
+                'isApproved' => true
             );
         }  else {
             $paramArray = array();
@@ -75,9 +76,32 @@ class MessageService {
 
         return $this->em->getRepository('ChatBundle:Message')->findBy(
             $paramArray,
-            array('dateSent' => 'DESC'),
+            array('dateApproved' => 'DESC', 'dateSent' => 'DESC'),
             100
         );
+    }
+
+    /**
+     * Approves or deletes message with given messageId.
+     *
+     * @param $messageId
+     * @param $toApprove
+     */
+    public function approveOrDelete($messageId, $toApprove) {
+
+        if(!$toApprove) {
+            // Do not fetch message from db, remove it via proxy.
+            $message = $this->em->getPartialReference('ChatBundle:Message', array('id' => $messageId));
+            $this->em->remove($message);
+            $this->em->flush();
+            return;
+        }
+
+        $message = $this->em->getRepository('ChatBundle:Message')->findOneBy(array('id' => $messageId));
+        $message->setIsApproved(true);
+        $message->setDateApproved(new \DateTime());
+        $this->em->persist($message);
+        $this->em->flush();
     }
 
 }

@@ -7,3 +7,13 @@ chat_send_message:
   path: /send
   defaults: { _controller: ChatBundle:Chat:sendMessage }
   methods: POST
+
+chat_retrieve_messages:
+  path: /retrieve-messages
+  defaults: { _controller: ChatBundle:Chat:retrieveMessages }
+  methods: POST
+
+chat_message_decide:
+  path: /message-decide
+  defaults: { _controller: ChatBundle:Chat:decide }
+  methods: POST
