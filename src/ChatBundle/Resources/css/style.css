@@ -17,8 +17,8 @@ div.row {
     border-bottom: 0px;
 }
 
-.container div.row:last-child {
-    border-bottom: 1px solid #9d9d9d;
+.lrow {
+    border-bottom: 1px solid #9d9d9d !important;
 }
 
 .column-border {
@@ -33,4 +33,8 @@ div.row {
 .no-bottom-space {
     margin-bottom: 0px;
     padding-bottom: 0px;
+}
+
+textarea {
+    resize: none;
 }

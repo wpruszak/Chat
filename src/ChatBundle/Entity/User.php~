@@ -130,46 +130,5 @@ class User {
 
         return $this->sessionId;
     }
-
-    /**
-     * Constructor
-     */
-    public function __construct() {
-
-        $this->messages = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add message
-     *
-     * @param \ChatBundle\Entity\Message $message
-     *
-     * @return User
-     */
-    public function addMessage(\ChatBundle\Entity\Message $message) {
-
-        $this->messages[] = $message;
-
-        return $this;
-    }
-
-    /**
-     * Remove message
-     *
-     * @param \ChatBundle\Entity\Message $message
-     */
-    public function removeMessage(\ChatBundle\Entity\Message $message) {
-
-        $this->messages->removeElement($message);
-    }
-
-    /**
-     * Get messages
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getMessages() {
-
-        return $this->messages;
-    }
 }
+
