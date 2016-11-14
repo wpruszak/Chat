@@ -1,0 +1,4 @@
+chat_home:
+  path: /
+  defaults: { _controller: ChatBundle:Chat:index }
+  methods: GET
