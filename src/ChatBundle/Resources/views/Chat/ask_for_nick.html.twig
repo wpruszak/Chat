@@ -1,0 +1,17 @@
+{% extends '@Chat/base.html.twig' %}
+
+{% block body %}
+
+    <div class="jumbotron vertical-center">
+        <div class="container wpx300">
+            <div class="form-group inflex">
+                <form action="{{ path('chat_home') }}" method="post" class="inflex">
+                    <label for="nickname" class="sr-only">Username</label>
+                    <input type="text" class="form-control" id="nickname" name="nick" placeholder="nickname">
+                    <button id="nickSubmit" class="btn btn-default" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

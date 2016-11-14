@@ -12,13 +12,13 @@
 
             <div class="panel-body">
                 <div class="row well no-space-between">
-                    <div class="col-md-1 column-border">Author</div>
-                    <div class="col-md-1 column-border">Role</div>
+                    <div class="col-md-1 column-border">Author [Role]</div>
+                    <div class="col-md-1 column-border">Date sent</div>
                     <div class="col-md-9">Message</div>
                 </div>
                 <div class="row well no-space-between lrow">
-                    <div class="col-md-1 column-border">Author</div>
-                    <div class="col-md-1 column-border">Role</div>
+                    <div class="col-md-1 column-border">Author [Role]</div>
+                    <div class="col-md-1 column-border">Date sent</div>
                     <div class="col-md-9">Message</div>
                 </div>
                 <div class="margin-left-right-15">
@@ -26,7 +26,7 @@
                         <label for="message">Message:</label>
                         <textarea class="form-control" rows="3" id="message"></textarea>
                     </div>
-                    <div class="btn btn-primary" id="sendMessage">Submit</div>
+                    <div class="btn btn-primary" id="sendMessage" data-url="{{ path('chat_send_message') }}">Submit</div>
                 </div>
             </div>
         </div>

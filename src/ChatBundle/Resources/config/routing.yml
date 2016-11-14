@@ -1,4 +1,9 @@
 chat_home:
   path: /
   defaults: { _controller: ChatBundle:Chat:index }
-  methods: GET
+  methods: [GET, POST]
+
+chat_send_message:
+  path: /send
+  defaults: { _controller: ChatBundle:Chat:sendMessage }
+  methods: POST
