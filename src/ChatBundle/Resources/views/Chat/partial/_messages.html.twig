@@ -1,6 +1,6 @@
 {% if messages is defined and messages is not null and messages is not empty %}
     {% for message in messages %}
-        <div class="row well no-space-between" id="message{{ message.id }}">
+        <div class="row well no-space-between{% if not message.isApproved %} redBckgrnd{% endif %}" id="message{{ message.id }}">
             <div class="col-md-1">{{ message.user.nick }}
                 {% if message.user.role == constant('USER_ROLE_EXPERT', message.user) %}[Expert]
                 {% elseif message.user.role == constant('USER_ROLE_MODERATOR', message.user) %}[Moderator]{% endif %}

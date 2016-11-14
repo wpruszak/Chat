@@ -25,6 +25,7 @@ class MessageService {
      * @param EntityManager $em
      */
     public function __construct($em) {
+
         $this->em = $em;
     }
 
@@ -48,7 +49,7 @@ class MessageService {
 
             $this->em->persist($message);
             $this->em->flush();
-        } catch(\Exception $e) {
+        } catch (\Exception $e) {
             return false;
         }
 
@@ -63,16 +64,21 @@ class MessageService {
      */
     public function getMessagesForUser($user) {
 
-        // If user is not moderator we can't show him unapproved messages.
-        if($user->getRole() === User::USER_ROLE_NORMAL
-            || $user->getRole() === User::USER_ROLE_EXPERT) {
-
-            $paramArray = array(
-                'isApproved' => true
-            );
-        }  else {
-            $paramArray = array();
+        if($user->getRole() === User::USER_ROLE_NORMAL) {
+            return $this->em->getRepository('ChatBundle:Message')->createQueryBuilder('m')
+                ->where('m.isApproved = :unapproved AND m.user = :user')
+                ->orWhere('m.isApproved = :approved')
+                ->orderBy('m.dateApproved', 'DESC')
+                ->addOrderBy('m.dateSent', 'DESC')
+                ->setParameter('user', $user)
+                ->setParameter('unapproved', 0)
+                ->setParameter('approved', 1)
+                ->getQuery()
+                ->getResult();
         }
+
+        // If user is not moderator we can't show him unapproved messages.
+        $paramArray = $user->getRole() === User::USER_ROLE_EXPERT ? array('isApproved' => true) : array();
 
         return $this->em->getRepository('ChatBundle:Message')->findBy(
             $paramArray,
@@ -87,9 +93,10 @@ class MessageService {
      * @param $messageId
      * @param $toApprove
      */
-    public function approveOrDelete($messageId, $toApprove) {
+    public
+    function approveOrDelete($messageId, $toApprove) {
 
-        if(!$toApprove) {
+        if (!$toApprove) {
             // Do not fetch message from db, remove it via proxy.
             $message = $this->em->getPartialReference('ChatBundle:Message', array('id' => $messageId));
             $this->em->remove($message);

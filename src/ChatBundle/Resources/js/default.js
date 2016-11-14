@@ -62,6 +62,9 @@ function decideMessageFate(messageId, decision) {
     )
 }
 
+/**
+ * Refreshes message list.
+ */
 function refreshMessages() {
     sendPost($messageButton.data('ret-url'), {}, function (response) {
         $('#allMessages').html(response['html']);
@@ -72,16 +75,13 @@ function refreshMessages() {
 
 window.onload = function () {
 
+    // Remove unwanted part of an url.
     window.history.pushState('Chat', 'Chat', '/');
 
     $messageButton = $('#sendMessage');
     //if($messageButton.length != 0) {
     //    setInterval(function () {
-    //        sendPost($messageButton.data('ret-url'), {}, function (response) {
-    //            $('#allMessages').html(response['html']);
-    //        }, function (response) {
-    //            console.log(response);
-    //        });
+    //        refreshMessages();
     //    }, 2000);
     //}
 };
