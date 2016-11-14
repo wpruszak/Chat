@@ -15,7 +15,6 @@ class ChatController extends Controller {
 
     public function indexAction(Request $request) {
 
-        // replace this example code with whatever you need
         return $this->render('ChatBundle:Chat:index.html.twig');
     }
 }

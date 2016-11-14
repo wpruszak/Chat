@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}{% endblock %}</title>
+    <meta http-equiv="Content-Type" content="text/html"/>
+    <meta name="keywords" content="chat chatbundle"/>
+    <meta name="description" content="Simple chat client."/>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+
+    {% block stylesheets %}
+
+        {% stylesheets
+        '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+        output='css/compiled.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+
+    {% endblock %}
+
+</head>
+
+<body>
+
+    {% block body %}{% endblock %}
+
+    <div id="copyright" class="container">
+        <p>©Copyright Wojciech Pruszak</p>
+    </div>
+
+    {% block javascripts %}
+        {% javascripts
+        '../node_modules/jquery/dist/jquery.min.js'
+        '../node_modules/bootstrap/dist/js/bootstrap.min.js'
+        output='js/compiled.js' %}
+        <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+</body>
+</html>

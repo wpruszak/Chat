@@ -16,7 +16,10 @@
 /web/bundles/
 
 # JetBrains IDEs files.
-.idea
+/.idea
 
 # Composer binary.
-composer.phar
+/composer.phar
+
+# JS dependencies.
+/node_modules
