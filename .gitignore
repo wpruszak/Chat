@@ -17,3 +17,6 @@
 
 # JetBrains IDEs files.
 .idea
+
+# Composer binary.
+composer.phar
