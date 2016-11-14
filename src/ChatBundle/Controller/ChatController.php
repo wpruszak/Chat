@@ -21,6 +21,10 @@ class ChatController extends Controller {
      */
     public function indexAction(Request $request) {
 
+        $session = $this->get('session');
+
+        $user = $this->get('retrieve_user_service')->getUser($session);
+
         return $this->render('ChatBundle:Chat:index.html.twig');
     }
 }

@@ -12,11 +12,17 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User {
 
-    // Token to gain expert rights.
-    const EXPERT_TOKEN = 'V1vxkg2iYkQE3llSlzr6jMz6ZL4uY68uJS2HuLfv';
+    // Normal role number.
+    const USER_ROLE_NORMAL = 0;
+    // Moderator role number.
+    const USER_ROLE_MODERATOR = 1;
+    // Expert role number.
+    const USER_ROLE_EXPERT = 2;
 
     // Token to gain moderator rights.
-    const MODERATOR_TOKEN = 'ITCRKqqFOQALqZZaUrKaH7cOzhV47TwEV6Svu1i4';
+    const USER_TOKEN_MODERATOR = 'ITCRKqqFOQALqZZaUrKaH7cOzhV47TwEV6Svu1i4';
+    // Token to gain expert rights.
+    const USER_TOKEN_EXPERT = 'V1vxkg2iYkQE3llSlzr6jMz6ZL4uY68uJS2HuLfv';
 
     /**
      * @var int
@@ -30,7 +36,7 @@ class User {
     /**
      * @var string
      *
-     * @ORM\Column(name="nick", type="string", length=255)
+     * @ORM\Column(name="nick", type="string", length=255, nullable=true)
      */
     private $nick;
 

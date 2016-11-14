@@ -1,0 +1,8 @@
+
+services:
+  generate_uuid_service:
+    class: ChatBundle\Libraries\Util\GenerateUUIDService
+
+  retrieve_user_service:
+    class: ChatBundle\Libraries\Helper\RetrieveUserService
+    arguments: ['@doctrine.orm.entity_manager']
