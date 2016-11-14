@@ -29,3 +29,8 @@ div.row {
 .container div.column:last-child {
     border-bottom: 1px solid #9d9d9d;
 }
+
+.no-bottom-space {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
