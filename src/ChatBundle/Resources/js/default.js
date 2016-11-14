@@ -72,6 +72,8 @@ function refreshMessages() {
 
 window.onload = function () {
 
+    window.history.pushState('Chat', 'Chat', '/');
+
     $messageButton = $('#sendMessage');
     //if($messageButton.length != 0) {
     //    setInterval(function () {

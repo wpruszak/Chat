@@ -27,7 +27,7 @@ div.row {
     border-left: 1px solid #9d9d9d;
 }
 
-.container div.column:last-child {
+div#allMessages div.row:last-child {
     border-bottom: 1px solid #9d9d9d;
 }
 

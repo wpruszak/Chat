@@ -70,10 +70,9 @@ class ChatController extends Controller {
     /**
      * Returns rendered messages html.
      *
-     * @param Request $request
      * @return JsonResponse
      */
-    public function retrieveMessagesAction(Request $request) {
+    public function retrieveMessagesAction() {
 
         // Retrieve user from session.
         $user = $this->get('user_service')->getUser($this->get('session'));
