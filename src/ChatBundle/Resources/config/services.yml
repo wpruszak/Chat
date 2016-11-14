@@ -4,5 +4,9 @@ services:
     class: ChatBundle\Libraries\Util\GenerateUUIDService
 
   retrieve_user_service:
-    class: ChatBundle\Libraries\Helper\RetrieveUserService
+    class: ChatBundle\Libraries\Helper\User\RetrieveUserService
+    arguments: ['@doctrine.orm.entity_manager']
+
+  promote_user_service:
+    class: ChatBundle\Libraries\Helper\User\PromoteUserService
     arguments: ['@doctrine.orm.entity_manager']

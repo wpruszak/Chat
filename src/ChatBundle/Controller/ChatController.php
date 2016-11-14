@@ -22,8 +22,14 @@ class ChatController extends Controller {
     public function indexAction(Request $request) {
 
         $session = $this->get('session');
-
+        // Retrieve user from session.
         $user = $this->get('retrieve_user_service')->getUser($session);
+
+        // If token exists, try promoting user.
+        $token = $request->query->get('token');
+        if($token !== null) {
+            $this->get('promote_user_service')->tryPromoting($user, $token);
+        }
 
         return $this->render('ChatBundle:Chat:index.html.twig');
     }

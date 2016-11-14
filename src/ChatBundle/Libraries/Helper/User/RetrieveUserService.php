@@ -1,6 +1,6 @@
 <?php
 
-namespace ChatBundle\Libraries\Helper;
+namespace ChatBundle\Libraries\Helper\User;
 
 use ChatBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
