@@ -54,4 +54,30 @@ class MessageService {
         return true;
     }
 
+    /**
+     * Returns first 100 messages for given user.
+     *
+     * @param User $user
+     * @return Message[]
+     */
+    public function getMessagesForUser($user) {
+
+        // If user is not moderator we can't show him unapproved messages.
+        if($user->getRole() === User::USER_ROLE_NORMAL
+            || $user->getRole() === User::USER_ROLE_EXPERT) {
+
+            $paramArray = array(
+                'isApproved' => false
+            );
+        }  else {
+            $paramArray = array();
+        }
+
+        return $this->em->getRepository('ChatBundle:Message')->findBy(
+            $paramArray,
+            array('dateSent' => 'DESC'),
+            100
+        );
+    }
+
 }

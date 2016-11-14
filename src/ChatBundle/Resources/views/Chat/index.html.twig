@@ -16,10 +16,8 @@
                     <div class="col-md-1 column-border">Date sent</div>
                     <div class="col-md-9">Message</div>
                 </div>
-                <div class="row well no-space-between lrow">
-                    <div class="col-md-1 column-border">Author [Role]</div>
-                    <div class="col-md-1 column-border">Date sent</div>
-                    <div class="col-md-9">Message</div>
+                <div id="allMessages">
+                    {{ include('@Chat/Chat/partial/_messages.html.twig', { 'messages': messages } ) }}
                 </div>
                 <div class="margin-left-right-15">
                     <div class="form-group">

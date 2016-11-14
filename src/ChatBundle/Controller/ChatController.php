@@ -40,7 +40,11 @@ class ChatController extends Controller {
             return $this->render('ChatBundle:Chat:ask_for_nick.html.twig');
         }
 
-        return $this->render('ChatBundle:Chat:index.html.twig');
+        $messageService = $this->get('message_service');
+
+        return $this->render('ChatBundle:Chat:index.html.twig', array(
+            'messages' => $messageService->getMessagesForUser($user)
+        ));
     }
 
     /**

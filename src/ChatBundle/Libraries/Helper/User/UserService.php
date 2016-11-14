@@ -39,7 +39,7 @@ class UserService {
      */
     public function trySettingNick($user, $nick) {
 
-        if($nick !== null && !empty($nick) && preg_match('~[\w\d]{1,}~is', $nick)) {
+        if($nick !== null && !empty($nick)) {
             $user->setNick($nick);
             $this->em->persist($user);
             $this->em->flush($user);
