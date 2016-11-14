@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User {
 
+    // Token to gain expert rights.
+    const EXPERT_TOKEN = 'V1vxkg2iYkQE3llSlzr6jMz6ZL4uY68uJS2HuLfv';
+
+    // Token to gain moderator rights.
+    const MODERATOR_TOKEN = 'ITCRKqqFOQALqZZaUrKaH7cOzhV47TwEV6Svu1i4';
+
     /**
      * @var int
      *

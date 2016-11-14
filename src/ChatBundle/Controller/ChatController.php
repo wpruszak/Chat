@@ -13,6 +13,12 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class ChatController extends Controller {
 
+    /**
+     * Default action.
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction(Request $request) {
 
         return $this->render('ChatBundle:Chat:index.html.twig');
