@@ -95,8 +95,8 @@ window.onload = function () {
 
     $messageButton = $('#sendMessage');
     if($messageButton.length != 0) {
-        //setInterval(function () {
-        //    refreshMessages();
-        //}, 1000);
+        setInterval(function () {
+            refreshMessages();
+        }, 1000);
     }
 };
