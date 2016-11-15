@@ -68,6 +68,24 @@ function decideMessageFate(messageId, decision) {
 function refreshMessages() {
     sendPost($messageButton.data('ret-url'), {}, function (response) {
         $('#allMessages').html(response['html']);
+
+        var notifications = response['notifications'];
+
+        var msg = '';
+        for(var field in notifications) {
+            if(notifications.hasOwnProperty(field)) {
+                msg += 'Message: ' + notifications[field]['message'] + ' was ';
+                msg += notifications[field]['success'] ? 'approved. ' : 'hidden. ';
+            }
+        }
+
+        if(msg !== '') {
+            alert(msg);
+        }
+
+        console.log(notifications);
+        console.log(msg);
+
     }, function (response) {
         console.log(response);
     });

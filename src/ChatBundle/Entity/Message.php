@@ -65,6 +65,13 @@ class Message {
     private $user;
 
     /**
+     * @var Notification
+     *
+     * @ORM\OneToOne(targetEntity="Notification", mappedBy="message")
+     */
+    private $notification;
+
+    /**
      * Get id
      *
      * @return int
@@ -216,5 +223,29 @@ class Message {
     public function getIsDeleted()
     {
         return $this->isDeleted;
+    }
+
+    /**
+     * Set notification
+     *
+     * @param \ChatBundle\Entity\Message $notification
+     *
+     * @return Message
+     */
+    public function setNotification(\ChatBundle\Entity\Message $notification = null)
+    {
+        $this->notification = $notification;
+
+        return $this;
+    }
+
+    /**
+     * Get notification
+     *
+     * @return \ChatBundle\Entity\Message
+     */
+    public function getNotification()
+    {
+        return $this->notification;
     }
 }

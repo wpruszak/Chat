@@ -77,10 +77,14 @@ class ChatController extends Controller {
         // Retrieve user from session.
         $user = $this->get('user_service')->getUser($this->get('session'));
 
+        $messageService = $this->get('message_service');
+
         return new JsonResponse(array(
             'html' => $this->renderView('@Chat/Chat/partial/_messages.html.twig', array(
-                'messages' => $this->get('message_service')->getMessagesForUser($user)
-            ))
+                'messages' => $messageService->getMessagesForUser($user),
+                'isModerator' => $user->getRole() === User::USER_ROLE_MODERATOR
+            )),
+            'notifications' => $messageService->getNotificationsFor($user)
         ));
     }
 

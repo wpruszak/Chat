@@ -3,6 +3,7 @@
 namespace ChatBundle\Libraries\Helper\Message;
 
 use ChatBundle\Entity\Message;
+use ChatBundle\Entity\Notification;
 use ChatBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 
@@ -99,6 +100,9 @@ class MessageService {
     public function approveOrDelete($messageId, $toApprove) {
 
         $message = $this->em->getRepository('ChatBundle:Message')->findOneBy(array('id' => $messageId));
+        $notification = new Notification();
+        $notification->setMessage($message);
+        $notification->setIsApproved($toApprove);
 
         if (!$toApprove) {
             $message->setIsDeleted(true);
@@ -107,8 +111,44 @@ class MessageService {
             $message->setDateApproved(new \DateTime());
         }
 
+        $this->em->persist($notification);
         $this->em->persist($message);
         $this->em->flush();
+    }
+
+    /**
+     * Returns user notifications in array of strings.
+     *
+     * @param User $user
+     * @return Notification[]
+     */
+    public function getNotificationsFor($user) {
+
+        $notificationRepo = $this->em->getRepository('ChatBundle:Notification');
+
+        $notifications = $notificationRepo->createQueryBuilder('n')
+            ->leftJoin('n.message', 'm')
+            ->leftJoin('m.user', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $user->getId())
+            ->getQuery()
+            ->getResult();
+
+        $result = array();
+
+        /** @var Notification $notification */
+        foreach($notifications as $notification) {
+            $result[] = array(
+                'message' => $notification->getMessage()->getContent(),
+                'success' => $notification->getIsApproved()
+            );
+
+            // Remove soon to be shown notifications.
+            $this->em->remove($notification);
+        }
+        $this->em->flush();
+
+        return $result;
     }
 
 }
