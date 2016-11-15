@@ -12,8 +12,8 @@ $('#sendMessage').click(function () {
     sendPost(
         $(this).data('url'),
         {message: message},
-        function (response) {
-            console.log('success: ', response);
+        function () {
+            refreshMessages();
         }, function (response) {
             console.log('success: ', response);
         }

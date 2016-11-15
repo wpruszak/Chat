@@ -36,6 +36,13 @@ class Message {
     private $isApproved;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="isDeleted", type="boolean", nullable=true)
+     */
+    private $isDeleted;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="dateSent", type="datetime")
@@ -185,5 +192,29 @@ class Message {
     public function getDateApproved()
     {
         return $this->dateApproved;
+    }
+
+    /**
+     * Set isDeleted
+     *
+     * @param boolean $isDeleted
+     *
+     * @return Message
+     */
+    public function setIsDeleted($isDeleted)
+    {
+        $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+    /**
+     * Get isDeleted
+     *
+     * @return boolean
+     */
+    public function getIsDeleted()
+    {
+        return $this->isDeleted;
     }
 }

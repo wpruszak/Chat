@@ -66,8 +66,11 @@ class MessageService {
 
         if($user->getRole() === User::USER_ROLE_NORMAL) {
             return $this->em->getRepository('ChatBundle:Message')->createQueryBuilder('m')
-                ->where('m.isApproved = :unapproved AND m.user = :user')
+                ->where('m.isApproved = :unapproved')
+                ->andWhere('m.user = :user')
+                ->andWhere('m.isDeleted is null')
                 ->orWhere('m.isApproved = :approved')
+                ->andWhere('m.isDeleted is null')
                 ->orderBy('m.dateApproved', 'DESC')
                 ->addOrderBy('m.dateSent', 'DESC')
                 ->setParameter('user', $user)
@@ -88,25 +91,22 @@ class MessageService {
     }
 
     /**
-     * Approves or deletes message with given messageId.
+     * Approves or hides message with given messageId.
      *
      * @param $messageId
      * @param $toApprove
      */
-    public
-    function approveOrDelete($messageId, $toApprove) {
-
-        if (!$toApprove) {
-            // Do not fetch message from db, remove it via proxy.
-            $message = $this->em->getPartialReference('ChatBundle:Message', array('id' => $messageId));
-            $this->em->remove($message);
-            $this->em->flush();
-            return;
-        }
+    public function approveOrDelete($messageId, $toApprove) {
 
         $message = $this->em->getRepository('ChatBundle:Message')->findOneBy(array('id' => $messageId));
-        $message->setIsApproved(true);
-        $message->setDateApproved(new \DateTime());
+
+        if (!$toApprove) {
+            $message->setIsDeleted(true);
+        } else {
+            $message->setIsApproved(true);
+            $message->setDateApproved(new \DateTime());
+        }
+
         $this->em->persist($message);
         $this->em->flush();
     }
