@@ -83,9 +83,6 @@ function refreshMessages() {
             alert(msg);
         }
 
-        console.log(notifications);
-        console.log(msg);
-
     }, function (response) {
         console.log(response);
     });

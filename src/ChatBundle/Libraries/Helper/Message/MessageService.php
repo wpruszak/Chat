@@ -82,7 +82,9 @@ class MessageService {
         }
 
         // If user is not moderator we can't show him unapproved messages.
-        $paramArray = $user->getRole() === User::USER_ROLE_EXPERT ? array('isApproved' => true) : array();
+        $paramArray = $user->getRole() === User::USER_ROLE_EXPERT
+            ? array('isApproved' => true, 'isDeleted' => null)
+            : array('isDeleted' => null);
 
         return $this->em->getRepository('ChatBundle:Message')->findBy(
             $paramArray,
