@@ -38,7 +38,7 @@ function sendPost(url, params, success, error) {
 }
 
 /**
- * Sends AJAX call to either approve or delete message.
+ * Sends AJAX call to either approve or hide message.
  *
  * @param messageId
  * @param decision
@@ -79,9 +79,9 @@ window.onload = function () {
     window.history.pushState('Chat', 'Chat', '/');
 
     $messageButton = $('#sendMessage');
-    //if($messageButton.length != 0) {
-    //    setInterval(function () {
-    //        refreshMessages();
-    //    }, 2000);
-    //}
+    if($messageButton.length != 0) {
+        //setInterval(function () {
+        //    refreshMessages();
+        //}, 1000);
+    }
 };
